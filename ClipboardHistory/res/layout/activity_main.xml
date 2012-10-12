@@ -4,11 +4,45 @@
     android:layout_height="match_parent" >
 
     <TextView
+        android:id="@+id/HelloText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/hello_world"
         tools:context=".MainActivity" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="21dp"
+        android:layout_marginTop="42dp"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editText1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/editText1"
+        android:text="Input" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/HelloText"
+        android:layout_alignLeft="@+id/editText1"
+        android:layout_marginBottom="42dp"
+        android:ems="10"
+        android:inputType="textPostalAddress" 
+        android:text="Please Enter text here">
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>
