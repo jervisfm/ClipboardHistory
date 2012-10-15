@@ -11,7 +11,8 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -23,24 +24,26 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView tv = (TextView) findViewById(R.id.HelloText);
-        tv.setText("Changed Text");
-        startMonitoringClipboard();         
+        
+        startMonitoringClipboard();
+        
+        ListView listView1 = (ListView) findViewById(R.id.listView1);
+        
+        String[] items = { "One", "Two", "tgree", "four", "five" };
+        
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, items);
+        
+        listView1.setAdapter(adapter);
+        
+        
+        
     }
 
     public void showMessage(String msg){
     	Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
     
-    public void showLatestClipboard() {
-    	 TextView tv = (TextView) findViewById(R.id.HelloText);
-    	 StringBuffer sb = new StringBuffer();
-    	 sb.append("Current Clipboard State:\n");
-    	 for(String s : mClips) {
-    		 sb.append(s + "\n"); 
-    	 }    	 
-         tv.setText(sb.toString());        
-    }
     
     public void startMonitoringClipboard() {
     	showMessage("Starting Monitoring ClipBoard");
@@ -60,7 +63,7 @@ public class MainActivity extends Activity {
 		    			String new_clip = cd.getItemAt(i).getText().toString();
 		    			mClips.add(new_clip);
 		    		}
-		    		showLatestClipboard();
+		    		
 
 		    	} else  {
 		    		showMessage("Clipboard has no text data");    		
