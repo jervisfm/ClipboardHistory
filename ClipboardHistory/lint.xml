@@ -3,4 +3,7 @@
     <issue id="NewApi">
         <ignore path="src\com\jervismuindi\clipboardhistory\MainActivity.java" />
     </issue>
+    <issue id="ParserError">
+        <ignore path="src\com\jervismuindi\clipboardhistory\MainActivity.java" />
+    </issue>
 </lint>

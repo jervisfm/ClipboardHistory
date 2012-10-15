@@ -1,6 +1,7 @@
 package com.jervismuindi.clipboardhistory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -9,6 +10,7 @@ import android.content.ClipboardManager;
 import android.content.ClipboardManager.OnPrimaryClipChangedListener;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -26,22 +28,26 @@ public class MainActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         
         startMonitoringClipboard();
-        
-        ListView listView1 = (ListView) findViewById(R.id.listView1);
-        
-        String[] items = { "One", "Two", "tgree", "four", "five" };
-        
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1, items);
-        
-        listView1.setAdapter(adapter);
-        
-        
-        
+        updateListView();
     }
 
     public void showMessage(String msg){
     	Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+    
+    private void updateListView() {
+    	ListView listView = (ListView) findViewById(R.id.listView1);
+    	
+    	 
+    	Object [] objArray= mClips.toArray();
+    	String[] items = Arrays.copyOf(objArray, objArray.length, String[].class);
+    	//String[] items = {"one", "two"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, items);    
+        
+        Log.d("CLIPHIST - 2222", "count2 == " + items.length);
+        listView.setAdapter(adapter);
+    
     }
     
     
@@ -58,12 +64,15 @@ public class MainActivity extends Activity {
 		    		showMessage("Clipboard has data");
 		    		
 		    		ClipData cd = cm.getPrimaryClip();
-		    		int count = cd.getItemCount(); 
+		    		int count = cd.getItemCount();
+		    		Log.d("CLIPHIST", "count == " + count);
 		    		for(int i = 0; i < count; ++i){
 		    			String new_clip = cd.getItemAt(i).getText().toString();
 		    			mClips.add(new_clip);
 		    		}
 		    		
+		    		// Update list view. 
+		    		updateListView();
 
 		    	} else  {
 		    		showMessage("Clipboard has no text data");    		
