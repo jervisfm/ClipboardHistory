@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.ClipData.Item;
 import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.ClipboardManager.OnPrimaryClipChangedListener;
@@ -67,7 +68,12 @@ public class MainActivity extends Activity {
 		    		int count = cd.getItemCount();
 		    		Log.d("CLIPHIST", "count == " + count);
 		    		for(int i = 0; i < count; ++i){
-		    			String new_clip = cd.getItemAt(i).getText().toString();
+		    			String new_clip =  null;
+		    			Item itm;
+		    			if((itm = cd.getItemAt(i)) != null) {
+		    				if(itm.getText() != null)
+		    					new_clip = itm.getText().toString();
+		    			}
 		    			mClips.add(new_clip);
 		    		}
 		    		
